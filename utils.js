@@ -99,16 +99,17 @@ var Utils = function () {
     var transformProperty = function detectTransformProperty() {
         var transformProperty = 'transform',
             safariPropertyHack = 'webkitTransform';
-        if (typeof document.body.style[transformProperty] !== 'undefined') {
+        var div = document.createElement("DIV");
+        if (typeof div.style[transformProperty] !== 'undefined') {
             ['webkit', 'moz', 'o', 'ms'].every(function (prefix) {
                 var e = '-' + prefix + '-transform';
-                if (typeof document.body.style[e] !== 'undefined') {
+                if (typeof div.style[e] !== 'undefined') {
                     transformProperty = e;
                     return false;
                 }
                 return true;
             });
-        } else if (typeof document.body.style[safariPropertyHack] !== 'undefined') {
+        } else if (typeof div.style[safariPropertyHack] !== 'undefined') {
             transformProperty = '-webkit-transform';
         } else {
             transformProperty = undefined;
